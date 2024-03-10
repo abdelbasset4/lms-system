@@ -5,6 +5,7 @@ import Select from "react-select";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { BsArrowRightShort } from "react-icons/bs";
 import * as Yup from "yup";
+import Image from "next/image";
 
 type Props = {
   courseInfo: any;
@@ -337,7 +338,7 @@ const CourseInformation: FC<Props> = ({
               onDragLeave={handleDragLeave}
               onDrop={handelDrop}>
               {courseInfo.thumbnail ? (
-                <img
+                <Image
                   src={courseInfo.thumbnail}
                   alt="course thumbnail"
                   className="w-full h-full object-cover rounded-lg"

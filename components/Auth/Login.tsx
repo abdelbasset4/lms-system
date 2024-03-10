@@ -19,9 +19,7 @@ type Props = {
 };
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Invalide email")
-    .required("please enter your email"),
+  email: Yup.string().email("Invalide email").required("please enter your email"),
   password: Yup.string()
     .required("please enter your password")
     .min(8, "password must be at least 8 characters"),
@@ -54,15 +52,11 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
         console.log(error);
       }
     }
-  }, [isSuccess, error]);
+  }, [isSuccess, error, setOpen]);
 
-  
   return (
     <div>
-      <Grid
-        container
-        component="main"
-        sx={{ height: "50vh", position: "relative" }}>
+      <Grid container component="main" sx={{ height: "50vh", position: "relative" }}>
         <CssBaseline />
         <Grid
           item
@@ -72,10 +66,7 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
           sx={{
             backgroundImage: `url(/assets/Login.png)`,
             backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
+            backgroundColor: (t) => (t.palette.mode === "light" ? t.palette.grey[50] : t.palette.grey[900]),
             backgroundSize: "cover",
             backgroundPosition: "center",
             position: "relative",
@@ -113,14 +104,8 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
               flexDirection: "column",
             }}>
             <h2 className="text-white font-Poppins text-2xl mb-4">Login</h2>
-            <h5 className="text-white font-Poppins mb-4">
-              Login to your account
-            </h5>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 1 }}>
+            <h5 className="text-white font-Poppins mb-4">Login to your account</h5>
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <div>
                 <input
                   type="email"
@@ -134,9 +119,7 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
                   placeholder="Email"
                 />
                 {errors.email && touched.email ? (
-                  <div className="text-red-500 w-full mt-1 font-Poppins ">
-                    {errors.email}
-                  </div>
+                  <div className="text-red-500 w-full mt-1 font-Poppins ">{errors.email}</div>
                 ) : null}
               </div>
               <div className="mt-4 relative">
@@ -152,9 +135,7 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
                   placeholder="Password"
                 />
                 {errors.password && touched.password ? (
-                  <div className="text-red-500 w-full mt-1 font-Poppins ">
-                    {errors.password}
-                  </div>
+                  <div className="text-red-500 w-full mt-1 font-Poppins ">{errors.password}</div>
                 ) : null}
                 <span
                   className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"
@@ -172,22 +153,11 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
                 Login
               </button>
               <Box className="flex justify-center flex-col items-center">
-                <span className="text-white font-Poppins block">
-                  Or Login With
-                </span>
+                <span className="text-white font-Poppins block">Or Login With</span>
               </Box>
               <div className="flex justify-center items-center mt-3">
-               
-                <FcGoogle
-                  className="cursor-pointer"
-                  size={30}
-                  onClick={() => signIn("google")}
-                />
-                <AiFillGithub
-                  className="ms-2 cursor-pointer"
-                  size={30}
-                  onClick={() => signIn("github")}
-                />
+                <FcGoogle className="cursor-pointer" size={30} onClick={() => signIn("google")} />
+                <AiFillGithub className="ms-2 cursor-pointer" size={30} onClick={() => signIn("github")} />
               </div>
               <h5 className="mt-4 font-Poppins">
                 Don&apos;t have an account ?{" "}

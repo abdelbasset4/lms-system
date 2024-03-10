@@ -236,7 +236,7 @@ const CourseContent: FC<Props> = ({
                       </div>
                       <br />
                       {item?.links.map((link: any, linkIndex: number) => (
-                        <div className="mt-3">
+                        <div key={linkIndex} className="mt-3">
                           <div className="flex justify-between">
                             <label className="text-lg font-semibold font-Poppins block mb-4">
                               Link {linkIndex + 1}

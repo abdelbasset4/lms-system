@@ -66,7 +66,7 @@ const Header: FC<HeaderProps> = ({
     if (error) {
       console.log(error);
     }
-  }, [data, user]);
+  }, [data, user, isSuccess, error]);
 
   return (
     <>

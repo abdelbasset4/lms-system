@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState,useEffect } from "react";
+import { FC, useState, useEffect } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -17,9 +17,7 @@ type Props = {
 
 const RegisterSchema = Yup.object().shape({
   name: Yup.string().required("please enter your name"),
-  email: Yup.string()
-    .email("Invalide email")
-    .required("please enter your email"),
+  email: Yup.string().email("Invalide email").required("please enter your email"),
   password: Yup.string()
     .required("please enter your password")
     .min(8, "password must be at least 8 characters"),
@@ -31,43 +29,40 @@ const RegisterSchema = Yup.object().shape({
 
 const Register: FC<Props> = ({ setRoute }) => {
   const [show, setShow] = useState(false);
-  const [register,{isError,isSuccess,error,data}] = useRegisterMutation()
+  const [register, { isError, isSuccess, error, data }] = useRegisterMutation();
   useEffect(() => {
     if (isSuccess) {
-      const message = data?.message || "Register success"
-      toast.success(message)
+      const message = data?.message || "Register success";
+      toast.success(message);
       setRoute("VerificationOTP");
     }
     if (error) {
-      if("data" in error ){
-        const errorData = error as any
-        toast.error(errorData.data.errors[0].msg  || "Register failed")
-      }else{
-        console.log(error)
+      if ("data" in error) {
+        const errorData = error as any;
+        toast.error(errorData.data.errors[0].msg || "Register failed");
+      } else {
+        console.log(error);
       }
     }
-  }, [isSuccess,error])
-  
+  }, [isSuccess, error, setRoute, data?.message]);
+
   const formik = useFormik({
     initialValues: {
-      name:"",  
+      name: "",
       email: "",
       password: "",
       confirmpassword: "",
     },
     validationSchema: RegisterSchema,
-    onSubmit: async({name,email,password}) => {
-      const data = {name,email,password}
-      await register(data)
+    onSubmit: async ({ name, email, password }) => {
+      const data = { username: name, email, password };
+      await register(data);
     },
   });
   const { handleChange, handleSubmit, values, errors, touched } = formik;
   return (
     <div className="box-border -mt-[250px]">
-      <Grid
-        container
-        component="main"
-        sx={{ height: "50vh", position: "relative" }}>
+      <Grid container component="main" sx={{ height: "50vh", position: "relative" }}>
         <CssBaseline />
         <Grid
           item
@@ -77,10 +72,7 @@ const Register: FC<Props> = ({ setRoute }) => {
           sx={{
             backgroundImage: `url(/assets/Login.png)`,
             backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
+            backgroundColor: (t) => (t.palette.mode === "light" ? t.palette.grey[50] : t.palette.grey[900]),
             backgroundSize: "cover",
             backgroundPosition: "center",
             position: "relative",
@@ -118,14 +110,8 @@ const Register: FC<Props> = ({ setRoute }) => {
               flexDirection: "column",
             }}>
             <h2 className="text-white font-Poppins text-2xl mb-4">Register</h2>
-            <h5 className="text-white font-Poppins mb-4">
-              Register to enjoy with Elearning
-            </h5>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 1 }}>
+            <h5 className="text-white font-Poppins mb-4">Register to enjoy with Elearning</h5>
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <div className="mb-4">
                 <input
                   type="text"
@@ -139,9 +125,7 @@ const Register: FC<Props> = ({ setRoute }) => {
                   placeholder="Name"
                 />
                 {errors.email && touched.email ? (
-                  <div className="text-red-500 w-full mt-1 font-Poppins ">
-                    {errors.email}
-                  </div>
+                  <div className="text-red-500 w-full mt-1 font-Poppins ">{errors.email}</div>
                 ) : null}
               </div>
               <div>
@@ -157,9 +141,7 @@ const Register: FC<Props> = ({ setRoute }) => {
                   placeholder="Email"
                 />
                 {errors.email && touched.email ? (
-                  <div className="text-red-500 w-full mt-1 font-Poppins ">
-                    {errors.email}
-                  </div>
+                  <div className="text-red-500 w-full mt-1 font-Poppins ">{errors.email}</div>
                 ) : null}
               </div>
               <div className="mt-4 relative">
@@ -175,9 +157,7 @@ const Register: FC<Props> = ({ setRoute }) => {
                   placeholder="Password"
                 />
                 {errors.password && touched.password ? (
-                  <div className="text-red-500 w-full mt-1 font-Poppins ">
-                    {errors.password}
-                  </div>
+                  <div className="text-red-500 w-full mt-1 font-Poppins ">{errors.password}</div>
                 ) : null}
                 <span
                   className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"
@@ -202,9 +182,7 @@ const Register: FC<Props> = ({ setRoute }) => {
                   placeholder="Confirm password"
                 />
                 {errors.confirmpassword && touched.confirmpassword ? (
-                  <div className="text-red-500 w-full mt-1 font-Poppins ">
-                    {errors.confirmpassword}
-                  </div>
+                  <div className="text-red-500 w-full mt-1 font-Poppins ">{errors.confirmpassword}</div>
                 ) : null}
                 <span
                   className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer"
@@ -222,9 +200,7 @@ const Register: FC<Props> = ({ setRoute }) => {
                 Register
               </button>
               <Box className="flex justify-center flex-col items-center">
-                <span className="text-white font-Poppins block">
-                  Or Register With
-                </span>
+                <span className="text-white font-Poppins block">Or Register With</span>
                 <div className="flex justify-center items-center mt-3">
                   <FcGoogle className="cursor-pointer" size={30} />
                   <AiFillGithub className="ms-2 cursor-pointer" size={30} />

@@ -1,84 +1,80 @@
-import { FC ,useState,useRef, useEffect} from 'react'
+import { FC, useState, useRef, useEffect } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-import { useSelector } from 'react-redux';
-import { useActivateMutation } from '@/Redux/Features/Auth/authApi';
-import toast from 'react-hot-toast';
+import { useSelector } from "react-redux";
+import { useActivateMutation } from "@/Redux/Features/Auth/authApi";
+import toast from "react-hot-toast";
 type Props = {
-    setRoute: (route: string) => void;
-}
+  setRoute: (route: string) => void;
+};
 type VerifyOTP = {
-    "0":string,
-    "1":string,
-    "2":string,
-    "3":string,
-    "4":string,
-    "5":string,
-}
+  "0": string;
+  "1": string;
+  "2": string;
+  "3": string;
+  "4": string;
+  "5": string;
+};
 
-const VervificationOTP:FC<Props> = ({setRoute}) => {
-    const {token} = useSelector((state:any) => state.auth)
-    
-    const [invalidError, setInvalidError] = useState(false)
-    const [verifyOTP, setVerifyOTP] = useState<VerifyOTP>({
-        "0":"",
-        "1":"",
-        "2":"",
-        "3":"",
-        "4":"",
-        "5":"",
-    })
-    const [activate,{isError,isSuccess,error,data}] = useActivateMutation()
+const VervificationOTP: FC<Props> = ({ setRoute }) => {
+  const { token } = useSelector((state: any) => state.auth);
+
+  const [invalidError, setInvalidError] = useState(false);
+  const [verifyOTP, setVerifyOTP] = useState<VerifyOTP>({
+    "0": "",
+    "1": "",
+    "2": "",
+    "3": "",
+    "4": "",
+    "5": "",
+  });
+  const [activate, { isError, isSuccess, error, data }] = useActivateMutation();
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Account activated successfully")
+      toast.success("Account activated successfully");
       setRoute("Login");
     }
     if (error) {
-      if("data" in error ){
-        const errorData = error as any
-        toast.error(errorData.data.message  || "Register failed")
-        setInvalidError(true)
-      }else{
-        console.log(error)
+      if ("data" in error) {
+        const errorData = error as any;
+        toast.error(errorData.data.message || "Register failed");
+        setInvalidError(true);
+      } else {
+        console.log(error);
       }
     }
-  }, [isSuccess,error])
-    const inputRefs = [
-        useRef<HTMLInputElement>(null),
-        useRef<HTMLInputElement>(null),
-        useRef<HTMLInputElement>(null),
-        useRef<HTMLInputElement>(null),
-        useRef<HTMLInputElement>(null),
-        useRef<HTMLInputElement>(null),
-    ]
-    const verificationHandler = async(e:any) => {
-        const verificationNumber = Object.values(verifyOTP).join("")
-        if(verificationNumber.length !==6){
-            setInvalidError(true)
-            return
-        }
-        await activate({activate_token:token,activate_code:verificationNumber})
+  }, [isSuccess, error, data, setRoute]);
+  const inputRefs = [
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+  ];
+  const verificationHandler = async (e: any) => {
+    const verificationNumber = Object.values(verifyOTP).join("");
+    if (verificationNumber.length !== 6) {
+      setInvalidError(true);
+      return;
     }
+    await activate({ activate_token: token, activate_code: verificationNumber });
+  };
 
-    const handelInputChanger = (index:number,value:string) => {
-        setInvalidError(false)
-        setVerifyOTP({...verifyOTP,[index]:value})
-        if(value ==="" && index > 0){
-            inputRefs[index - 1].current?.focus()
-        }else if(value.length ===1 && index < 5){
-            inputRefs[index + 1].current?.focus()
-        }
+  const handelInputChanger = (index: number, value: string) => {
+    setInvalidError(false);
+    setVerifyOTP({ ...verifyOTP, [index]: value });
+    if (value === "" && index > 0) {
+      inputRefs[index - 1].current?.focus();
+    } else if (value.length === 1 && index < 5) {
+      inputRefs[index + 1].current?.focus();
     }
+  };
   return (
     <div>
-      <Grid
-        container
-        component="main"
-        sx={{ height: "50vh", position: "relative" }}
-        >
+      <Grid container component="main" sx={{ height: "50vh", position: "relative" }}>
         <CssBaseline />
         <Grid
           item
@@ -88,10 +84,7 @@ const VervificationOTP:FC<Props> = ({setRoute}) => {
           sx={{
             backgroundImage: `url(/assets/Login.png)`,
             backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
+            backgroundColor: (t) => (t.palette.mode === "light" ? t.palette.grey[50] : t.palette.grey[900]),
             backgroundSize: "cover",
             backgroundPosition: "center",
             position: "relative",
@@ -104,7 +97,9 @@ const VervificationOTP:FC<Props> = ({setRoute}) => {
               One Step Closer To <br />
               Your dream
             </h3>
-            <p className="mt-4 text-white text-base font-Poppins leading-8">An E-Learning service that is ready to help you become an expert</p>
+            <p className="mt-4 text-white text-base font-Poppins leading-8">
+              An E-Learning service that is ready to help you become an expert
+            </p>
           </Box>
         </Grid>
         <Grid
@@ -113,7 +108,7 @@ const VervificationOTP:FC<Props> = ({setRoute}) => {
           sm={12}
           md={6}
           sx={{
-            backgroundColor:"#1C1E53 ",
+            backgroundColor: "#1C1E53 ",
             color: "#fff",
           }}
           component={Paper}
@@ -125,35 +120,30 @@ const VervificationOTP:FC<Props> = ({setRoute}) => {
               mx: 4,
               display: "flex",
               flexDirection: "column",
-              
-             
             }}>
             <h2 className="text-white font-Poppins text-2xl mb-4">Verify OTP</h2>
             <h5 className="text-white font-Poppins mb-4">Verify number sent to your email</h5>
-            <Box
-              component="form"
-              noValidate
-             
-              sx={{ mt: 1 }}>
-             <div className="flex justify-around items-center mx-auto">
-                {
-                    Object.keys(verifyOTP).map((key,index) => (
-                        <input
-                            className="w-12 h-14 text-center border border-primary rounded-lg font-Poppins font-bold text-lg"
-                            key={key}
-                            value={verifyOTP[key as keyof VerifyOTP]}
-                            ref={inputRefs[index]}
-                            onChange={(e) => handelInputChanger(index,e.target.value)}
-                            onKeyUp={(e) => verificationHandler(e)}
-                            maxLength={1}
-                            type="number"
-                        />
-                    )
-                    )
-                }
-             </div>
-             <button type="submit" className="bg-yellow text-primary w-full my-5 py-3 rounded-lg font-Poppins font-bold text-lg hover:border hover:border-yellow hover:bg-primary hover:text-yellow duration-300">Verify OTP</button>
-             
+            <Box component="form" noValidate sx={{ mt: 1 }}>
+              <div className="flex justify-around items-center mx-auto">
+                {Object.keys(verifyOTP).map((key, index) => (
+                  <input
+                    className="w-12 h-14 text-center border border-primary rounded-lg font-Poppins font-bold text-lg"
+                    key={key}
+                    value={verifyOTP[key as keyof VerifyOTP]}
+                    ref={inputRefs[index]}
+                    onChange={(e) => handelInputChanger(index, e.target.value)}
+                    onKeyUp={(e) => verificationHandler(e)}
+                    maxLength={1}
+                    type="number"
+                  />
+                ))}
+              </div>
+              <button
+                type="submit"
+                className="bg-yellow text-primary w-full my-5 py-3 rounded-lg font-Poppins font-bold text-lg hover:border hover:border-yellow hover:bg-primary hover:text-yellow duration-300">
+                Verify OTP
+              </button>
+
               <h5 className="mt-4 font-Poppins">
                 Or go back to{" "}
                 <span
@@ -167,7 +157,7 @@ const VervificationOTP:FC<Props> = ({setRoute}) => {
         </Grid>
       </Grid>
     </div>
-  )
-}
+  );
+};
 
-export default VervificationOTP
+export default VervificationOTP;
