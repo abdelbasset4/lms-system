@@ -7,9 +7,9 @@ type RegisterResponse = {
 };
 
 type RegisterData = {
-  // email: string;
-  // password: string;
-  // username: string;
+  email: string;
+  password: string;
+  username: string;
 };
 
 export const authApi = apiSlice.injectEndpoints({
