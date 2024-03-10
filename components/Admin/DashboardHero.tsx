@@ -120,7 +120,7 @@ const DashboardHero = () => {
               Top 5 Courses
             </h1>
             {topCourses?.courses.map((course: any, index: number) => (
-              <div className="flex items-center gap-4 w-full p-4 rounded-md bg-primary opacity-80 text-white dark:bg-white dark:text-primary my-3">
+              <div key={index}  className="flex items-center gap-4 w-full p-4 rounded-md bg-primary opacity-80 text-white dark:bg-white dark:text-primary my-3">
                 <p className=" text-center font-semibold text-lg">
                   {index + 1}
                 </p>

@@ -279,8 +279,8 @@ const CourseInformation: FC<Props> = ({
               <option value="Beginning" className="text-white bg-primary">
                 Select Caegories ...
               </option>
-              {options?.map((option: any) => (
-                <option value={option.value} className="text-white bg-primary">
+              {options?.map((option: any,index:number) => (
+                <option key={index} value={option.value} className="text-white bg-primary">
                   {option.label}
                 </option>
               ))}

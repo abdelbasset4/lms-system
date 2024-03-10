@@ -66,8 +66,8 @@ const CoursePreview: FC<Props> = ({
               <label className="text-primary dark:text-white text-lg block mb-3">
                 Tags:
               </label>
-              {courseData.tags.map((tag: any) => (
-                <span className="text-sm text-white bg-green-800 rounded-2xl mr-2 py-1 px-2">
+              {courseData.tags.map((tag: any,index:number) => (
+                <span key={index} className="text-sm text-white bg-green-800 rounded-2xl mr-2 py-1 px-2">
                   {tag}
                 </span>
               ))}
@@ -80,8 +80,8 @@ const CoursePreview: FC<Props> = ({
               What you learn from this course:
             </p>
             {/* <p className="text-sm text-gray-500 dark:text-gray-300"> */}
-            {courseData.benifits.map((benifit: any) => (
-              <div className="flex gap-3 mb-2 ms-2">
+            {courseData.benifits.map((benifit: any,index:number) => (
+              <div key={index} className="flex gap-3 mb-2 ms-2">
                 <span>
                   <GiCheckMark size={20} className={`text-green-700`} />
                 </span>
@@ -94,8 +94,8 @@ const CoursePreview: FC<Props> = ({
             <p className="text-primary dark:text-white text-2xl font-semibold mb-3">
               What are the requirements you have before start learn this course:
             </p>
-            {courseData.requirements.map((requirement: any) => (
-              <div className="flex gap-3 mb-2 ms-2">
+            {courseData.requirements.map((requirement: any,index:number) => (
+              <div key={index} className="flex gap-3 mb-2 ms-2">
                 <span>
                   <GiCheckMark size={20} className={`text-green-700`} />
                 </span>

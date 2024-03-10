@@ -23,6 +23,7 @@ const FAQS = () => {
                         <FaqsCard
                             idx={idx}
                             faqsList={item}
+                            key={idx}
                         />
                   
                 ))}

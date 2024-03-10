@@ -1,21 +1,16 @@
-import {
-  useGetLayoutQuery,
-  useUpdateLayoutMutation,
-} from "@/Redux/Features/Layout/layoutApi";
+import { useGetLayoutQuery, useUpdateLayoutMutation } from "@/Redux/Features/Layout/layoutApi";
 import { useState, useEffect } from "react";
 import Loader from "@/components/Loader/Loader";
 import DashboardHeader from "../DashboardHeader";
 import toast from "react-hot-toast";
 import { MdAddCircle, MdOutlineDelete } from "react-icons/md";
 
-
 const EditCategories = () => {
   const { data, refetch } = useGetLayoutQuery("category", {
     refetchOnMountOrArgChange: true,
   });
   const [categories, setCategories] = useState<any[]>([]);
-  const [updateLayout, { isSuccess, error, isLoading }] =
-    useUpdateLayoutMutation();
+  const [updateLayout, { isSuccess, error, isLoading }] = useUpdateLayoutMutation();
 
   useEffect(() => {
     if (data) {
@@ -34,20 +29,15 @@ const EditCategories = () => {
         console.log(error);
       }
     }
-  }, [data, isSuccess, error]);
+  }, [data, isSuccess, error, refetch]);
 
   const handelCategoires = (id: any, value: string) => {
     setCategories((prev) =>
-      prev.map((category) =>
-        category._id === id ? { ...category, title: value } : category
-      )
+      prev.map((category) => (category._id === id ? { ...category, title: value } : category))
     );
   };
   const addNewCategory = () => {
-    if (
-      categories.length > 0 &&
-      categories[categories.length - 1].title === ""
-    ) {
+    if (categories.length > 0 && categories[categories.length - 1].title === "") {
       toast.error("Please fill the last category");
     } else {
       const newCategory = {
@@ -60,9 +50,7 @@ const EditCategories = () => {
     return JSON.stringify(original) === JSON.stringify(newArray);
   };
   const isCategoryEmpty = (original: any[]) => {
-    return original.some(
-      (item: any) => item.question === "" || item.answer === ""
-    );
+    return original.some((item: any) => item.question === "" || item.answer === "");
   };
   const hundelUpdate = async () => {
     await updateLayout({
@@ -82,17 +70,13 @@ const EditCategories = () => {
               All Categories
             </h1>
             {categories.map((category, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between mt-5">
+              <div key={index} className="flex items-center justify-between mt-5">
                 <input
                   type="text"
                   className="w-full border border-gray-300 dark:border-gray-700 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-800 dark:text-white"
                   placeholder="Category title"
                   value={category.title}
-                  onChange={(e) =>
-                    handelCategoires(category._id, e.target.value)
-                  }
+                  onChange={(e) => handelCategoires(category._id, e.target.value)}
                 />
                 <div>
                   <MdOutlineDelete
@@ -110,24 +94,17 @@ const EditCategories = () => {
             <button
               className="flex items-center justify-center text-white my-5 py-3  font-Poppins  text-lg hover:text-yellow duration-300"
               onClick={addNewCategory}>
-              <MdAddCircle
-                size={30}
-                className="text-primary dark:text-white mr-2"
-              />
+              <MdAddCircle size={30} className="text-primary dark:text-white mr-2" />
               <span>Add new Category</span>
             </button>
             <button
               className={`flex items-center  justify-center bg-yellow text-primary w-36 my-5 py-3 rounded-lg font-Poppins font-bold text-lg hover:border hover:border-yellow hover:bg-primary hover:text-yellow duration-300 ${
-                areCategoryChenged(data?.layout?.faqs, categories) ||
-                isCategoryEmpty(categories)
+                areCategoryChenged(data?.layout?.faqs, categories) || isCategoryEmpty(categories)
                   ? "opacity-50 cursor-not-allowed"
                   : "opacity-100"
               }`}
               onClick={() => {
-                if (
-                  !areCategoryChenged(data?.layout?.faqs, categories) ||
-                  !isCategoryEmpty(categories)
-                ) {
+                if (!areCategoryChenged(data?.layout?.faqs, categories) || !isCategoryEmpty(categories)) {
                   hundelUpdate();
                 }
               }}>

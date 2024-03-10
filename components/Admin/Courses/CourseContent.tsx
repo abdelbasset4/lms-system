@@ -108,7 +108,7 @@ const CourseContent: FC<Props> = ({
             index === 0 ||
             item.videoSection !== courseContent[index - 1].videoSection;
           return (
-            <>
+            <div key={index} >
               <div
                 className={`w-full bg-secondary rounded-md p-4 shadow-xl font-Poppins ${
                   showSectionInput ? "mt-10" : "mt-0"
@@ -303,7 +303,7 @@ const CourseContent: FC<Props> = ({
                   </button>
                 )}
               </div>
-            </>
+            </div >
           );
         })}
         <button

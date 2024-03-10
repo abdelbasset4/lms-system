@@ -15,33 +15,33 @@ const CourseDetailsPage = ({ params }: any) => {
   const [route, setRoute] = useState("Login");
   const [open, setOpen] = useState(false);
   const { data } = useGetCourseDetailsQuery(params.id);
-  const { data: config } = useGetStripePublisherKeysQuery({});
-  const [createPaymentIntent, { data: paymentIntentData }] =
-    useCreatePaymentIntentMutation({});
-  const [stripePromise, setStripePromise] = useState<any>(null);
-  const [clientSecret, setClientSecret] = useState<any>("");
+  // const { data: config } = useGetStripePublisherKeysQuery({});
+  // const [createPaymentIntent, { data: paymentIntentData }] =
+  //   useCreatePaymentIntentMutation({});
+  // const [stripePromise, setStripePromise] = useState<any>(null);
+  // const [clientSecret, setClientSecret] = useState<any>("");
 
-  console.log(config);
+  // console.log(config);
   
 
-  useEffect(() => {
-    if (config) {
-      setStripePromise(loadStripe(config?.stripeApiKey));
-    }
-    if (data) {
-      const amount = Math.round(data?.course.price - data?.course.discount);
-      createPaymentIntent(amount);
-    }
-  }, [config, data]);
+  // useEffect(() => {
+  //   if (config) {
+  //     setStripePromise(loadStripe(config?.stripeApiKey));
+  //   }
+  //   if (data) {
+  //     const amount = Math.round(data?.course.price - data?.course.discount);
+  //     createPaymentIntent(amount);
+  //   }
+  // }, [config, data]);
 
-  useEffect(() => {
-    if (paymentIntentData) {
-      setClientSecret(paymentIntentData?.client_secret);
-    }
-  }, [paymentIntentData]);
+  // useEffect(() => {
+  //   if (paymentIntentData) {
+  //     setClientSecret(paymentIntentData?.client_secret);
+  //   }
+  // }, [paymentIntentData]);
 
-  console.log(clientSecret);
-  console.log(stripePromise);
+  // console.log(clientSecret);
+  // console.log(stripePromise);
   
   
 
@@ -59,13 +59,13 @@ const CourseDetailsPage = ({ params }: any) => {
         route={route}
         setRoute={setRoute}
       />
-      {stripePromise && (
+      {/* {stripePromise && (
         <CourseDetails
           data={data?.course}
           stripePromise={stripePromise}
           clientSecret={clientSecret}
         />
-      )}
+      )} */}
       <Footer />
     </div>
   );

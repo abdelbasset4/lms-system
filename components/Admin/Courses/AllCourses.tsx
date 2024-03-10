@@ -1,15 +1,12 @@
 "use client";
 import Link from "next/link";
 import DashboardHeader from "../DashboardHeader";
-import { FC, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Button, Box, Modal } from "@mui/material";
 import { useTheme } from "next-themes";
 import { MdOutlineDelete, MdOutlineEdit } from "react-icons/md";
-import {
-  useDeleteCourseMutation,
-  useGetAdminCoursesQuery,
-} from "@/Redux/Features/Courses/CoursesApi";
+import { useDeleteCourseMutation, useGetAdminCoursesQuery } from "@/Redux/Features/Courses/CoursesApi";
 import Loader from "@/components/Loader/Loader";
 import { format } from "timeago.js";
 import toast from "react-hot-toast";
@@ -19,10 +16,7 @@ const AllCourses = () => {
   const [courseId, setCourseId] = useState("");
 
   const { theme, setTheme } = useTheme();
-  const { isLoading, data, refetch } = useGetAdminCoursesQuery(
-    {},
-    { refetchOnMountOrArgChange: true }
-  );
+  const { isLoading, data, refetch } = useGetAdminCoursesQuery({}, { refetchOnMountOrArgChange: true });
   const [deleteCourse, { isSuccess, error }] = useDeleteCourseMutation({});
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", flex: 0.7 },
@@ -112,7 +106,7 @@ const AllCourses = () => {
       toast.success("Course deleted successfully");
       setOpen(!open);
     }
-  }, [isSuccess, error]);
+  }, [isSuccess, error, refetch, open]);
   return (
     <div>
       <DashboardHeader />
@@ -138,10 +132,7 @@ const AllCourses = () => {
               },
               "& .MuiDataGrid-row": {
                 color: theme === "dark" ? "#fff" : "#1C1E53",
-                borderButtom:
-                  theme === "dark"
-                    ? "1px solid #fff !important"
-                    : "1px solid #ccc !important",
+                borderButtom: theme === "dark" ? "1px solid #fff !important" : "1px solid #ccc !important",
               },
               "& .MuiTablePagination-root": {
                 color: theme === "dark" ? "#fff" : "#1C1E53",
@@ -197,9 +188,7 @@ const AllCourses = () => {
           aria-labelledby="Delete User"
           aria-describedby="Delete User">
           <div className="w-96 max-h-max bg-white dark:bg-primary rounded-lg outline-none focus:outline-none flex flex-col p-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <h1 className="text-2xl font-bold mb-4 text-center">
-              Are you sure delete this course ?
-            </h1>
+            <h1 className="text-2xl font-bold mb-4 text-center">Are you sure delete this course ?</h1>
             <div className="flex space-x-3 justify-end">
               <button
                 className="bg-transparent text-white border border-white w-28 mt-5 mb-3 py-2 rounded-lg font-Poppins font-bold text-lg hover:border hover:border-yellow hover:bg-primary hover:text-yellow duration-300"

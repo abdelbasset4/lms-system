@@ -5,7 +5,7 @@ import { Heading } from "../utils/Heading";
 import Header from "@/components/Home/Header";
 import Profile from "@/components/Profile/Profile";
 import { useSelector } from "react-redux";
-const page = () => {
+const ProfilePage = () => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
   const [route, setRoute] = useState("Login");
@@ -31,4 +31,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ProfilePage;

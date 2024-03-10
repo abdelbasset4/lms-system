@@ -190,7 +190,7 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
                 />
               </div>
               <h5 className="mt-4 font-Poppins">
-                Don't have an account ?{" "}
+                Don&apos;t have an account ?{" "}
                 <span
                   onClick={() => setRoute("Register")}
                   className="text-yellow font-Poppins cursor-pointer underline">

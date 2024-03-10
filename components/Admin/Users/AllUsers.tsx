@@ -145,7 +145,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
       toast.success("Delete user successfully");
       setOpen(!open);
     }
-  }, [isSuccess, roleError,succesDelete,deleteError]);
+  }, [isSuccess, roleError,succesDelete,deleteError,active,open,refetch,error]);
 
   
   return (
